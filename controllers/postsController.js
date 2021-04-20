@@ -11,7 +11,16 @@ const postsController = {
             texto, img, usuario_id, n_likes
         });
         return res.json(novoPost);
-
+    },  show: async(request, response) => {
+            const { id } = request.params;
+    
+            const postsUsuario = await Post.findAll({
+                where: {
+                    usuarios_id: id
+                }
+            });
+    
+            return response.json(postsUsuario);
     }, update: async (req, res) => {
         let {id} = req.params
         let {texto} = req.body;
@@ -22,7 +31,7 @@ const postsController = {
             where: {id} 
         });
         return res.send(atualizarPost);
-
+        //delete
     }, delete: async (req, res) => {
         let { id } = req.params;
 
